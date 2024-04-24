@@ -11,7 +11,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: '3.10'
       - name: Install libraries
         run: pip install flake8
       - name: Lint with flake8
@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
+          python-version: '3.10'
       - name: Install libraries
         run: |
             cd function
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Create release
-        uses: actions/create-release@v1  # This has been archived
+        uses: actions/release-action@v1
         env: 
           # How the runner authenticate with the github api to create the release
           GITHUB_TOKEN: ${{ secrets.github_token }} 
