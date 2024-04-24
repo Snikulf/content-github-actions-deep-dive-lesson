@@ -46,9 +46,11 @@ jobs:
           path: ${{ github.sha }}.zip
   publish:
     runs-on: ubuntu-latest
+    needs: build
     steps: 
       - name: Create release
-        uses: actions/create-release@v1
+        id: create-release
+        uses: actions/create-release@v1  # This action is archived
         env: 
           # How the runner authenticate with the github api to create the release
           GITHUB_TOKEN: ${{ secrets.github_token }} 
@@ -58,3 +60,25 @@ jobs:
           body: New release for ${{ github.sha }}. Release notes on the documentation site
           draft: false
           prerelease: false
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zipped-bundle
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env: 
+          # How the runner authenticate with the github api to create the release
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          # This gets the url created when creating the release
+          # The ID create-release is what makes this work with the variable under
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ github.sha }}.zip  # Where in the runner the asset is now
+          # Name to appear on the release page
+          # Needs explain what is in the release and is not spesific to the run
+          asset_name: source_code_with_libraries.zip 
+          # They type of the asset, which is a zip file
+          # Could have been other libraries like container images
+          asset_content_type: application/zip  
+        
+        
