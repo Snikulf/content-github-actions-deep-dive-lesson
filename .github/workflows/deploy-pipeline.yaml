@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Create release
-        uses: actions/release-action@v1
+        uses: actions/create-release@v1
         env: 
           # How the runner authenticate with the github api to create the release
           GITHUB_TOKEN: ${{ secrets.github_token }} 
