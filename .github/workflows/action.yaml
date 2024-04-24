@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check oout code
+      - name: Check out code
         uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,7 +27,7 @@ jobs:
             cd function
             zip -r ../${{ github.sha }}.zip .
       - name: Archive artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: zipped-bundle  # This is a name we give it to use in later workflows
           path: ${{ github.sha }}.zip
