@@ -75,7 +75,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./${{ github.sha }}.zip  # Where in the runner the asset is now
           # Name to appear on the release page
-          # Needs explain what is in the release and is not spesific to the run
+          # Needs explain what is in the release and is not specific to the run
           asset_name: source_code_with_libraries.zip 
           # They type of the asset, which is a zip file
           # Could have been other libraries like container images
