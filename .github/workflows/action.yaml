@@ -1,0 +1,33 @@
+name: Deploy my Lambda Function
+
+on: 
+  push: 
+    branches:  # This triggers the workflow when someone pushes to the main branch
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check oout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install libraries
+        run: |
+            cd function
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
+      - name: Create zip bundle  
+        # This step zips everything in current directory into the parent folder 
+        # using the commit sha
+        run: |
+            cd function
+            zip -r ../${{ github.sha }}.zip .
+      - name: Archive artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: zipped-bundle  # This is a name we give it to use in later workflows
+          path: ${{ github.sha }}.zip
