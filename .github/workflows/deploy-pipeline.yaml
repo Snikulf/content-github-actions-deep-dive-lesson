@@ -49,7 +49,7 @@ jobs:
     needs: build
     steps: 
       - name: Create release
-        id: create-release
+        id: create_release
         uses: actions/create-release@v1  # This action is archived
         env: 
           # How the runner authenticate with the github api to create the release
