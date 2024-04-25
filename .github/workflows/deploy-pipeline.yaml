@@ -72,7 +72,7 @@ jobs:
         with:
           # This gets the url created when creating the release
           # The ID create-release is what makes this work with the variable under
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./${{ github.sha }}.zip  # Where in the runner the asset is now
           # Name to appear on the release page
           # Needs explain what is in the release and is not specific to the run
